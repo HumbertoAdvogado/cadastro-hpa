@@ -1,0 +1,8 @@
+name = "jursystem-cadastro"
+main = "worker_cadastro.js"
+compatibility_date = "2026-01-01"
+
+# Segredos (NÃO ficam neste arquivo — configure no painel ou via wrangler):
+#   wrangler secret put GH_TOKEN
+#   wrangler secret put GIST_ID
+#   wrangler secret put FORM_KEY
