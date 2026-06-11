@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Cadastro de Cliente — Humberto de Alencar Pereira Junior</title>
+<style>
+:root{
+  --navy:#1C3A4A; --navy2:#2a5269; --gold:#B8860B; --gold2:#806000;
+  --bg:#f2f4f7; --card:#ffffff; --txt:#212121; --txt2:#5a6570; --border:#d6dce3;
+  --ok:#1e8449; --err:#c0392b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Calibri','Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--txt);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.topo{background:var(--navy);color:#fff;padding:26px 16px 22px;text-align:center;border-bottom:4px solid var(--gold)}
+.topo h1{font-size:19px;font-weight:700;letter-spacing:.4px}
+.topo .sub{font-size:12.5px;color:#cdd9e0;margin-top:4px}
+.topo .oab{display:inline-block;margin-top:8px;font-size:11px;color:var(--gold);border:1px solid rgba(184,134,11,.55);padding:3px 12px;border-radius:14px;letter-spacing:.6px}
+.wrap{max-width:680px;margin:0 auto;padding:18px 14px 60px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px 20px;margin-top:16px;box-shadow:0 2px 10px rgba(28,58,74,.06)}
+.sec{font-size:11px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:1.2px;margin:18px 0 10px;padding-bottom:5px;border-bottom:2px solid var(--gold)}
+.sec:first-child{margin-top:0}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.fg{flex:1;min-width:180px;margin-bottom:11px}
+.fg.full{flex-basis:100%}
+.fg.curto{flex:0 0 110px;min-width:110px}
+label{display:block;font-size:12px;font-weight:600;color:var(--navy);margin-bottom:4px}
+label .req{color:var(--err)}
+input,select,textarea{width:100%;padding:10px 11px;border:1px solid var(--border);border-radius:5px;font-size:15px;font-family:inherit;background:#fff;color:var(--txt)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,134,11,.15)}
+input.invalido{border-color:var(--err);background:#fff6f5}
+textarea{min-height:110px;resize:vertical}
+.hint{font-size:11px;color:var(--txt2);margin-top:3px}
+.lgpd{display:flex;gap:10px;align-items:flex-start;background:#f7f9fb;border:1px solid var(--border);border-radius:6px;padding:12px;margin-top:16px;font-size:12.5px;color:var(--txt2)}
+.lgpd input{width:18px;height:18px;flex:0 0 18px;margin-top:2px;accent-color:var(--gold)}
+.btn{display:block;width:100%;margin-top:18px;background:var(--navy);color:#fff;border:none;border-radius:6px;padding:14px;font-size:16px;font-weight:700;cursor:pointer;letter-spacing:.3px;font-family:inherit}
+.btn:hover{background:var(--navy2)}
+.btn:disabled{opacity:.55;cursor:wait}
+.btn.sec-btn{background:#fff;color:var(--navy);border:1.5px solid var(--navy);margin-top:10px;font-size:14px;padding:11px}
+.btn.zap{background:#1e8449}
+.btn.zap:hover{background:#27ae60}
+.msg{display:none;margin-top:14px;padding:12px 14px;border-radius:6px;font-size:13.5px}
+.msg.err{display:block;background:#fdf1f0;border:1px solid var(--err);color:#7c241b}
+.msg.ok{display:block;background:#eef8f1;border:1px solid var(--ok);color:#155d33}
+.rodape{text-align:center;font-size:11px;color:var(--txt2);margin-top:26px}
+#tela-sucesso{display:none;text-align:center;padding:34px 18px}
+#tela-sucesso .check{font-size:52px}
+#tela-sucesso h2{color:var(--navy);margin:12px 0 6px;font-size:20px}
+#tela-sucesso .protocolo{display:inline-block;margin:14px 0;background:var(--navy);color:var(--gold);font-size:18px;font-weight:700;letter-spacing:2px;padding:10px 22px;border-radius:6px}
+#area-codigo{display:none;margin-top:14px;text-align:left}
+#area-codigo textarea{font-size:11px;min-height:88px;background:#f7f9fb;color:var(--txt2);word-break:break-all}
+@media(max-width:540px){.fg{min-width:140px}.card{padding:18px 14px}}
+</style>
+</head>
+<body>
+
+<div class="topo">
+  <h1>⚖ Humberto de Alencar Pereira Junior</h1>
+  <div class="sub">Advocacia — Ficha de Cadastro de Cliente</div>
+  <div class="oab">OAB/SP nº 463.794</div>
+</div>
+
+<div class="wrap">
+
+  <div class="card" id="card-form">
+    <p style="font-size:13px;color:var(--txt2);margin-bottom:6px">
+      Preencha seus dados com atenção. As informações serão usadas exclusivamente para a sua
+      qualificação em documentos e peças do seu caso. Campos com <span style="color:var(--err)">*</span> são obrigatórios.
+    </p>
+
+    <form id="form-cadastro" novalidate>
+      <!-- Honeypot anti-robô: humanos não veem este campo -->
+      <input type="text" name="website" id="hp-website" tabindex="-1" autocomplete="off"
+             style="position:absolute;left:-7000px;top:-7000px" aria-hidden="true">
+
+      <div class="sec">Identificação</div>
+      <div class="row">
+        <div class="fg full"><label>Nome completo (sem abreviações) <span class="req">*</span></label>
+          <input id="f-nome" autocomplete="name" placeholder="Ex.: Maria Aparecida dos Santos"></div>
+      </div>
+      <div class="row">
+        <div class="fg"><label>Como prefere ser chamado(a)</label>
+          <input id="f-prenome" placeholder="Ex.: Maria"></div>
+        <div class="fg"><label>CPF <span class="req">*</span></label>
+          <input id="f-cpf" inputmode="numeric" maxlength="14" placeholder="000.000.000-00">
+          <div class="hint" id="cpf-hint"></div></div>
+      </div>
+      <div class="row">
+        <div class="fg"><label>RG (número e órgão expedidor)</label>
+          <input id="f-rg" placeholder="Ex.: 12.345.678-9 SSP/SP"></div>
+        <div class="fg"><label>Data de nascimento</label>
+          <input id="f-nasc" type="date"></div>
+      </div>
+      <div class="row">
+        <div class="fg"><label>Nacionalidade</label>
+          <input id="f-nac" value="brasileiro(a)"></div>
+        <div class="fg"><label>Estado civil</label>
+          <select id="f-est">
+            <option value="">— selecione —</option>
+            <option>Solteiro(a)</option><option>Casado(a)</option><option>Divorciado(a)</option>
+            <option>Viúvo(a)</option><option>Separado(a) judicialmente</option>
+          </select></div>
+      </div>
+      <div class="row">
+        <div class="fg"><label>Vive em união estável?</label>
+          <select id="f-uniao"><option value="">Não</option><option value="Sim, vive em união estável">Sim</option></select></div>
+        <div class="fg"><label>Profissão / atividade</label>
+          <input id="f-prof" placeholder="Ex.: autônomo(a), do lar, vendedor(a)"></div>
+        <div class="fg curto"><label>Gênero</label>
+          <select id="f-genero"><option value="">—</option><option value="F">Feminino</option><option value="M">Masculino</option></select></div>
+      </div>
+
+      <div class="sec">Endereço residencial</div>
+      <div class="row">
+        <div class="fg curto"><label>CEP</label>
+          <input id="f-cep" inputmode="numeric" maxlength="9" placeholder="00000-000">
+          <div class="hint" id="cep-hint"></div></div>
+        <div class="fg"><label>Logradouro (rua, avenida...)</label>
+          <input id="f-logradouro" autocomplete="address-line1"></div>
+        <div class="fg curto"><label>Número</label>
+          <input id="f-numero" inputmode="numeric"></div>
+      </div>
+      <div class="row">
+        <div class="fg"><label>Complemento</label>
+          <input id="f-compl" placeholder="Apto, casa, bloco..."></div>
+        <div class="fg"><label>Bairro</label>
+          <input id="f-bairro"></div>
+      </div>
+      <div class="row">
+        <div class="fg"><label>Cidade</label>
+          <input id="f-cidade" autocomplete="address-level2"></div>
+        <div class="fg curto"><label>UF</label>
+          <input id="f-uf" maxlength="2" style="text-transform:uppercase"></div>
+      </div>
+
+      <div class="sec">Contato</div>
+      <div class="row">
+        <div class="fg"><label>Telefone / WhatsApp <span class="req">*</span></label>
+          <input id="f-tel" inputmode="tel" maxlength="16" autocomplete="tel" placeholder="(11) 90000-0000"></div>
+        <div class="fg"><label>E-mail</label>
+          <input id="f-email" type="email" autocomplete="email" placeholder="seuemail@exemplo.com"></div>
+      </div>
+
+      <div class="sec">Sobre o seu caso</div>
+      <div class="fg full"><label>Conte, em poucas linhas, o que aconteceu</label>
+        <textarea id="f-relato" placeholder="Descreva o ocorrido, datas aproximadas, valores envolvidos e o que você espera resolver."></textarea>
+        <div class="hint">Não envie senhas. Documentos serão solicitados depois, por canal seguro.</div>
+      </div>
+
+      <div class="lgpd">
+        <input type="checkbox" id="f-lgpd">
+        <label for="f-lgpd" style="font-weight:400;color:var(--txt2);font-size:12.5px;cursor:pointer">
+          Autorizo o tratamento dos meus dados pessoais pelo advogado Humberto de Alencar Pereira Junior,
+          OAB/SP nº 463.794, exclusivamente para fins de atendimento jurídico, elaboração de documentos e
+          atuação no meu caso, nos termos do art. 7º, incisos I e V, da Lei nº 13.709/2018 (LGPD).
+          Estou ciente de que posso solicitar a exclusão dos dados a qualquer tempo.
+        </label>
+      </div>
+
+      <div class="msg err" id="msg-erro"></div>
+
+      <button type="button" class="btn" id="btn-enviar" onclick="enviar()">📨 Enviar cadastro</button>
+
+      <div id="area-codigo">
+        <div class="msg ok" style="display:block">
+          O envio automático não está disponível agora. Sem problema: use o botão verde abaixo para
+          mandar seu cadastro diretamente pelo WhatsApp do escritório, ou copie o código e envie por mensagem.
+        </div>
+        <label style="margin-top:10px">Código do seu cadastro</label>
+        <textarea id="codigo-out" readonly onclick="this.select()"></textarea>
+        <button type="button" class="btn zap" id="btn-zap" onclick="enviarWhatsApp()">📲 Enviar pelo WhatsApp do escritório</button>
+        <button type="button" class="btn sec-btn" onclick="copiarCodigo()">📋 Copiar código</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card" id="tela-sucesso">
+    <div class="check">✅</div>
+    <h2>Cadastro enviado com sucesso!</h2>
+    <p style="color:var(--txt2);font-size:13.5px">Seus dados foram recebidos pelo escritório.<br>Guarde o seu protocolo:</p>
+    <div class="protocolo" id="protocolo-out">—</div>
+    <p style="color:var(--txt2);font-size:13px">O Dr. Humberto entrará em contato pelo telefone ou e-mail informado.<br>
+    Dúvidas: <strong>(11) 96706-8008</strong> · humberto.advocacia@gmail.com</p>
+  </div>
+
+  <div class="rodape">
+    Humberto de Alencar Pereira Junior — OAB/SP nº 463.794 · Franco da Rocha/SP<br>
+    Seus dados são protegidos nos termos da Lei nº 13.709/2018 (LGPD).
+  </div>
+</div>
+
+<script>
+/* ============================================================================
+   CONFIGURAÇÃO
+   API_URL: endereço do Cloudflare Worker que recebe o cadastro.
+            Pode ficar vazio: o formulário também aceita ?api=https://... na URL.
+   FORM_KEY: deve ser idêntica ao segredo FORM_KEY configurado no Worker.
+   WHATSAPP: número que recebe o código no modo de contingência (só dígitos, com 55).
+============================================================================ */
+const API_URL  = '';                      // ex.: 'https://jursystem-cadastro.SEUUSUARIO.workers.dev'
+const FORM_KEY = 'hpa-Tf2wqMHuUBtVsmWN'; // mesma chave configurada como segredo FORM_KEY no Worker
+const WHATSAPP = '5511967068008';
+
+const $ = id => document.getElementById(id);
+const apiUrl = () => (API_URL || new URLSearchParams(location.search).get('api') || '').trim().replace(/\/+$/,'');
+
+/* ── Máscaras ─────────────────────────────────────────────────────────────── */
+$('f-cpf').addEventListener('input', e => {
+  let v = e.target.value.replace(/\D/g,'').slice(0,11);
+  v = v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})\.(\d{3})(\d)/,'$1.$2.$3').replace(/\.(\d{3})(\d{1,2})$/,'.$1-$2');
+  e.target.value = v;
+  const ok = validarCPF(v);
+  e.target.classList.toggle('invalido', v.length === 14 && !ok);
+  $('cpf-hint').textContent = (v.length === 14 && !ok) ? 'CPF inválido: confira os números.' : '';
+  $('cpf-hint').style.color = 'var(--err)';
+});
+$('f-tel').addEventListener('input', e => {
+  let v = e.target.value.replace(/\D/g,'').slice(0,11);
+  if (v.length > 10)      v = v.replace(/(\d{2})(\d{5})(\d{4})/,'($1) $2-$3');
+  else if (v.length > 6)  v = v.replace(/(\d{2})(\d{4})(\d{0,4})/,'($1) $2-$3');
+  else if (v.length > 2)  v = v.replace(/(\d{2})(\d{0,5})/,'($1) $2');
+  e.target.value = v;
+});
+$('f-cep').addEventListener('input', e => {
+  let v = e.target.value.replace(/\D/g,'').slice(0,8);
+  e.target.value = v.length > 5 ? v.slice(0,5) + '-' + v.slice(5) : v;
+  if (v.length === 8) buscarCep(v);
+});
+
+/* ── ViaCEP ───────────────────────────────────────────────────────────────── */
+async function buscarCep(cep){
+  $('cep-hint').textContent = 'Buscando endereço…'; $('cep-hint').style.color = 'var(--txt2)';
+  try{
+    const r = await fetch('https://viacep.com.br/ws/' + cep + '/json/');
+    const d = await r.json();
+    if (d.erro) { $('cep-hint').textContent = 'CEP não encontrado — preencha manualmente.'; return; }
+    if (d.logradouro) $('f-logradouro').value = d.logradouro;
+    if (d.bairro)     $('f-bairro').value     = d.bairro;
+    if (d.localidade) $('f-cidade').value     = d.localidade;
+    if (d.uf)         $('f-uf').value         = d.uf;
+    $('cep-hint').textContent = 'Endereço preenchido: confira e informe o número.';
+    $('f-numero').focus();
+  }catch(e){ $('cep-hint').textContent = ''; }
+}
+
+/* ── Validação de CPF (dígitos verificadores) ─────────────────────────────── */
+function validarCPF(cpf){
+  cpf = String(cpf||'').replace(/\D/g,'');
+  if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+  for (const t of [9,10]) {
+    let soma = 0;
+    for (let i = 0; i < t; i++) soma += parseInt(cpf[i]) * (t + 1 - i);
+    const dv = (soma * 10) % 11 % 10;
+    if (dv !== parseInt(cpf[t])) return false;
+  }
+  return true;
+}
+
+/* ── Montagem do registro (mesmos campos do JurSystem) ────────────────────── */
+function montarCliente(){
+  const v = id => $(id).value.trim();
+  const logr=v('f-logradouro'), num=v('f-numero'), compl=v('f-compl'),
+        bairro=v('f-bairro'), cidade=v('f-cidade'), uf=v('f-uf').toUpperCase(), cep=v('f-cep');
+  const endFull=[logr+(num?' nº '+num:'')+(compl?', '+compl:''), bairro, cidade+(uf?'/'+uf:''), cep?'CEP '+cep:'']
+        .filter(Boolean).join(' — ');
+  return {
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2,6),
+    nome: v('f-nome').toUpperCase(),
+    prenome: v('f-prenome'),
+    cpf: v('f-cpf'),
+    rg: v('f-rg'),
+    dataNasc: v('f-nasc'),
+    nacionalidade: v('f-nac') || 'brasileiro(a)',
+    estadoCivil: v('f-est'),
+    uniaoEstavel: v('f-uniao'),
+    genero: v('f-genero'),
+    profissao: v('f-prof'),
+    cep, logradouro: logr, numero: num, complemento: compl, bairro, cidade, uf,
+    pais: 'Brasil',
+    endereco: endFull,
+    email: v('f-email'),
+    tel: v('f-tel'),
+    obs: v('f-relato') ? 'Relato do cliente (formulário): ' + v('f-relato') : '',
+    _origem: 'formulario',
+    _enviadoEm: new Date().toISOString()
+  };
+}
+
+function validarForm(){
+  const erros = [];
+  if ($('f-nome').value.trim().length < 5) erros.push('Informe o nome completo.');
+  if (!validarCPF($('f-cpf').value))       erros.push('Informe um CPF válido.');
+  if ($('f-tel').value.replace(/\D/g,'').length < 10) erros.push('Informe um telefone com DDD.');
+  if (!$('f-lgpd').checked)                erros.push('É necessário autorizar o uso dos dados (LGPD) para enviar.');
+  if ($('hp-website').value)               erros.push('Falha na verificação. Recarregue a página.');
+  return erros;
+}
+
+/* ── Envio ────────────────────────────────────────────────────────────────── */
+async function enviar(){
+  const box = $('msg-erro'); box.style.display = 'none';
+  const erros = validarForm();
+  if (erros.length){ box.innerHTML = erros.map(e=>'• '+e).join('<br>'); box.style.display='block';
+    try{ window.scrollTo({top:box.offsetTop-90,behavior:'smooth'}); }catch(e){} return; }
+
+  const cliente = montarCliente();
+  const url = apiUrl();
+  const btn = $('btn-enviar');
+
+  if (url) {
+    btn.disabled = true; btn.textContent = '⏳ Enviando…';
+    try{
+      const r = await fetch(url + '/cadastro', {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json' },
+        body: JSON.stringify({ fkey: FORM_KEY, cliente })
+      });
+      const d = await r.json().catch(()=>({}));
+      if (r.ok && d.ok) { mostrarSucesso(d.protocolo || 'RECEBIDO'); return; }
+      throw new Error(d.erro || ('HTTP ' + r.status));
+    }catch(e){
+      box.innerHTML = 'Não foi possível enviar automaticamente (' + e.message +
+        '). Use a opção do WhatsApp abaixo.';
+      box.style.display = 'block';
+      gerarCodigo(cliente);
+    }finally{
+      btn.disabled = false; btn.textContent = '📨 Enviar cadastro';
+    }
+  } else {
+    gerarCodigo(cliente);
+  }
+}
+
+function mostrarSucesso(protocolo){
+  $('card-form').style.display = 'none';
+  $('protocolo-out').textContent = protocolo;
+  $('tela-sucesso').style.display = 'block';
+  try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){}
+}
+
+/* ── Modo de contingência: código + WhatsApp ──────────────────────────────── */
+let _codigoAtual = '';
+function gerarCodigo(cliente){
+  const json = JSON.stringify(cliente);
+  const b64 = btoa(String.fromCharCode(...new TextEncoder().encode(json)));
+  _codigoAtual = 'JURCAD1:' + b64;
+  $('codigo-out').value = _codigoAtual;
+  $('area-codigo').style.display = 'block';
+  $('btn-enviar').style.display = 'none';
+  try{ $('area-codigo').scrollIntoView({behavior:'smooth'}); }catch(e){}
+}
+function enviarWhatsApp(){
+  const texto = 'Olá, Dr. Humberto! Segue meu cadastro preenchido pelo formulário:\n\n' + _codigoAtual;
+  window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(texto), '_blank');
+}
+function copiarCodigo(){
+  navigator.clipboard.writeText(_codigoAtual).then(()=>alert('Código copiado! Cole na conversa com o escritório.'));
+}
+</script>
+</body>
+</html>
