@@ -180,8 +180,26 @@ textarea{min-height:110px;resize:vertical}
     <h2>Cadastro enviado com sucesso!</h2>
     <p style="color:var(--txt2);font-size:13.5px">Seus dados foram recebidos pelo escritório.<br>Guarde o seu protocolo:</p>
     <div class="protocolo" id="protocolo-out">—</div>
-    <p style="color:var(--txt2);font-size:13px">O Dr. Humberto entrará em contato pelo telefone ou e-mail informado.<br>
-    Dúvidas: <strong>(11) 96706-8008</strong> · humberto.advocacia@gmail.com</p>
+
+    <div class="docs-lista">
+      <p>📎 Próximo passo: envie seus documentos</p>
+      <ul>
+        <li>RG ou CNH (frente e verso)</li>
+        <li>Comprovante de residência recente</li>
+        <li>CTPS Digital (print ou PDF do aplicativo)</li>
+      </ul>
+      <p class="docs-aviso">Tire fotos nítidas ou faça print das telas. Envie pelo botão abaixo — é rápido e seguro.</p>
+    </div>
+
+    <a id="btn-docs-zap" class="btn-docs" href="#" target="_blank" rel="noopener">
+      <span class="wa-ico">📲</span>
+      <span>Enviar documentos pelo WhatsApp</span>
+    </a>
+
+    <p style="color:var(--txt2);font-size:12px;margin-top:18px">
+      O Dr. Humberto entrará em contato pelo telefone ou e-mail informado.<br>
+      Dúvidas: <strong>(11) 96706-8008</strong> · humberto.advocacia@gmail.com
+    </p>
   </div>
 
   <div class="rodape">
@@ -199,7 +217,7 @@ textarea{min-height:110px;resize:vertical}
    WHATSAPP: número que recebe o código no modo de contingência (só dígitos, com 55).
 ============================================================================ */
 const API_URL  = '';                      // ex.: 'https://jursystem-cadastro.SEUUSUARIO.workers.dev'
-const FORM_KEY = 'hpa-Tf2wqMHuUBtVsmWN'; // mesma chave configurada como segredo FORM_KEY no Worker
+const FORM_KEY = 'hpa-2026';              // troque por um valor seu e replique no Worker
 const WHATSAPP = '5511967068008';
 
 const $ = id => document.getElementById(id);
@@ -335,6 +353,23 @@ async function enviar(){
 function mostrarSucesso(protocolo){
   $('card-form').style.display = 'none';
   $('protocolo-out').textContent = protocolo;
+
+  // Monta mensagem WhatsApp com nome e protocolo do cliente
+  const nome = $('f-nome').value.trim() || 'cliente';
+  const msg = [
+    'Olá, Dr. Humberto! Me chamo ' + nome + '.',
+    'Acabei de preencher o cadastro pelo formulário.',
+    protocolo ? 'Protocolo: ' + protocolo : '',
+    '',
+    'Segue os documentos solicitados:',
+    '• RG ou CNH (frente e verso)',
+    '• Comprovante de residência',
+    '• CTPS Digital',
+  ].filter(Boolean).join('\n');
+
+  const btn = $('btn-docs-zap');
+  btn.href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg);
+
   $('tela-sucesso').style.display = 'block';
   try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){}
 }
